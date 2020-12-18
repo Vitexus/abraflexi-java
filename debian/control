@@ -2,7 +2,7 @@ Source: abraflexi-java
 Section: libs
 Priority: optional
 Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
-Build-Depends: debhelper (>= 5), javahelper, default-jdk, libslf4j-java
+Build-Depends: debhelper (>= 5), javahelper, default-jdk, libslf4j-java, libmaven-source-plugin-java, libassertj-core-java
 Standards-Version: 3.7.3
 Homepage: https://github.com/Vitexus/abraflexi-java
 
