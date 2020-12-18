@@ -10,7 +10,7 @@
         <module>flexibee-core</module>
     </modules>
 
-    <name>flexibee</name>
+    <name>AbraFlexi Java library</name>
     <description>flexibee sdk</description>
     <url>https://github.com/adleritech/flexibee</url>
 

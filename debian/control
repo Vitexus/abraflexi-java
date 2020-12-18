@@ -1,0 +1,14 @@
+Source: abraflexi-java
+Section: libs
+Priority: optional
+Maintainer: Vítězslav Dvořák <info@vitexsoftware.cz>
+Build-Depends: debhelper (>= 5), javahelper, default-jdk, libslf4j-java
+Standards-Version: 3.7.3
+Homepage: https://github.com/Vitexus/abraflexi-java
+
+Package: abraflexi-java
+Architecture: all
+Depends: ${java:Depends}, ${misc:Depends}, libslf4j-java
+Description: AbraFlexi Java client library
+ It's unofficial Java library for Flexibee.eu. The library offers a set of 
+ AbraFlexi API objects for creating invoices via its REST API.
