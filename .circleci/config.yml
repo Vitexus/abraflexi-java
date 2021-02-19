@@ -1,9 +1,16 @@
-version: 2
+version: 2.1
+
+workflows:
+  build:
+    jobs:
+      - build:
+          context: java
+
 jobs:
   build:
     working_directory: ~/work
     docker:
-      - image: "ltgdocker/circleci-openjdk"
+      - image: 570645264518.dkr.ecr.eu-central-1.amazonaws.com/build/circleci-openjdk-8:2020-11-18.15.180
 
     steps:
       - checkout
@@ -23,3 +30,18 @@ jobs:
           path: flexibee-core/target/surefire-reports
           destination: surefire-reports/
 
+      - deploy:
+          name: Deploy to nexus
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              PROJECT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+              if [[ "$PROJECT_VERSION" == *-SNAPSHOT ]]; then
+                mvn source:jar deploy -DskipTests -s settings.xml
+              else
+                SCM_CONNECTION=$(mvn help:evaluate -Dexpression=project.scm.connection -q -DforceStdout)
+                ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+                echo scm.url=$SCM_CONNECTION > release.properties
+                echo scm.tag=$ARTIFACT_ID-$PROJECT_VERSION >> release.properties
+                mvn release:perform -s settings.xml
+              fi
+            fi
